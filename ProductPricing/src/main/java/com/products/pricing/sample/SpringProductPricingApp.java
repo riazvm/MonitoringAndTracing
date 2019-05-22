@@ -7,6 +7,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import io.jaegertracing.Configuration;
+
 
 
 @SpringBootApplication
@@ -23,5 +25,9 @@ public class SpringProductPricingApp {
     {
     	return restTemplateBuilder.build();
     }
-
+    @Bean
+	public io.opentracing.Tracer getTracer()  {
+		Configuration config = Configuration.fromEnv();
+	    return config.getTracer();  
+	}
 }

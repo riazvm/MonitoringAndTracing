@@ -7,6 +7,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import io.jaegertracing.Configuration;
+
 
 
 @SpringBootApplication
@@ -14,7 +16,12 @@ public class SpringProductApp {
 	
 
 	
-
+	@Bean
+	public io.opentracing.Tracer getTracer()  {
+		Configuration config = Configuration.fromEnv();
+	    return config.getTracer();  
+	}
+	
     public static void main(String[] args) {
         SpringApplication.run(SpringProductApp.class, args);
         

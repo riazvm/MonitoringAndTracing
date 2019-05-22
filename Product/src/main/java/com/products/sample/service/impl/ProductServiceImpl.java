@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 		pricing.setSupportFee(tmpProduct.getSupportFee());
 		pricing.setTier(tmpProduct.getTier());
 	
-		ResponseEntity<String> result = restTemplate.postForEntity("http://localhost:9090"+"/productpricing", pricing, String.class);
+		ResponseEntity<String> result = restTemplate.postForEntity(pricingURL+"/productpricing", pricing, String.class);
 		System.out.print("------helooooo--------"+result);
 		// TODO Auto-generated method stub
 		return tmpProduct;
