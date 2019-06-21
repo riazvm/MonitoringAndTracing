@@ -1,4 +1,4 @@
-package com.example.ordermgr;
+package com.tracing.sample.accountmgr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import io.jaegertracing.Configuration;
 
 @SpringBootApplication
-public class OrderMgrApplication {
+public class AccountMgrApplication {
 
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
@@ -17,7 +17,7 @@ public class OrderMgrApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(OrderMgrApplication.class, args);
+		SpringApplication.run(AccountMgrApplication.class, args);
 	}
 	
 	@Bean
