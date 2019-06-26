@@ -21,9 +21,9 @@ spec:
           containerPort: 9099
         env:
           - name: JAEGER_SERVICE_NAME
-            value: productpricingservice
+            value: productservice
           - name: JAEGER_AGENT_HOST
-            value: jaeger-agent
+            value: jaeger-all-in-one-agent
           - name: JAEGER_SAMPLER_TYPE
             value: const
           - name: JAEGER_SAMPLER_PARAM
@@ -34,6 +34,33 @@ spec:
             value: "version=${VERSION}"
           - name: OPENTRACING_METRICS_EXPORTER_HTTP_PATH
             value: "/metrics"
+          - name: DB_PORT
+            value: 3306
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql.username        
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql.root.password
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql.root.password 
+          - name: DB_SERVICE
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: mysql.service.name   
+          - name: DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: mysql.db.name
 ---
 kind: Service
 apiVersion: v1

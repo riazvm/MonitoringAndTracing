@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: product
+  namespace: tracing
 spec:
   replicas: 3
   template:
@@ -16,7 +17,7 @@ spec:
         image: riazvm/publicrepo:productservice1.0
         ports:
         - name: http
-          containerPort: 8080
+          containerPort: 9090
         - name: prometheus-jmx
           containerPort: 9099
         env:
@@ -36,11 +37,38 @@ spec:
             value: "/metrics"
           - name: PRICING_URL
             value: "http://productpricing:8080"
----
+          - name: DB_PORT
+            value: 3306
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql.username        
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql.root.password
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql.root.password 
+          - name: DB_SERVICE
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: mysql.service.name   
+          - name: DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: mysql.db.name
 kind: Service
 apiVersion: v1
 metadata:
   name: product
+  namespace: tracing
   labels:
     service: product
 spec:
@@ -49,4 +77,4 @@ spec:
     service: product
   ports:
   - name: http
-    port: 8080
+    port: 9090

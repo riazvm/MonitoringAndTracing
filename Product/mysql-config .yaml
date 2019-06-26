@@ -1,0 +1,9 @@
+apiVersion: v1 
+kind: ConfigMap
+metadata:
+  name: mysql-config
+  namespace: tracing 
+data:
+  # Configuration values can be set as key-value properties
+  mysql.service.name: mysqlproducts
+  mysql.db.name: products
